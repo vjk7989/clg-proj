@@ -4,7 +4,7 @@ board = [' ' for x in range(10)]
 def insertLetter(letter, pos):
     board[pos] = letter
 
-
+#code by krishna tadepalli
 def spaceIsFree(pos):
     return board[pos] == ' '
 
@@ -31,7 +31,7 @@ def isWinner(bo, le):
                        bo[3] == le and bo[6] == le and bo[9] == le) or (
                        bo[1] == le and bo[5] == le and bo[9] == le) or (bo[3] == le and bo[5] == le and bo[7] == le)
 
-
+#code by vjk
 def playerMove():
     run = True
     while run:
@@ -58,10 +58,10 @@ def compMove():
         for i in possibleMoves:
             boardCopy = board[:]
             boardCopy[i] = let
-            if isWinner(boardCopy, let):
+            if isWinner(boardCopy, let): # yes u can win dont give up
                 move = i
                 return move
-
+# tvor kelv
     cornersOpen = []
     for i in possibleMoves:
         if i in [1, 3, 7, 9]:
