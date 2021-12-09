@@ -17,7 +17,7 @@ if __name__ == "__main__":
             message=" just checking you are alive",
             app_icon = "D:\pythonProject\clg-proj\He.ico",
             timeout=2,
-            ticker = "honey money",
+            ticker = "vkT",
             toast = True
         )
     # waiting time
