@@ -1,8 +1,8 @@
 inpuT = input("Enter the value : ")
 t = inpuT
 
-def  ra(n):
-    ll = n[::-1]
+def  ra(t):
+    ll = t[::-1]
     return ll 
     
 
@@ -49,9 +49,10 @@ def frequency1(st):
         x =(max(d1.keys()),"-",max(d1.values()))
     return  x 
 
-print(ra(t))    
+print(ra(t),"\n")    
 p = len(r(inpuT))    
 for i in r(inpuT):
     print(i,end = ' ')    
-print(frequency(inpuT))
-print(frequency1(inpuT))
+print("\n")    
+print(frequency(inpuT),"\n")
+print(frequency1(inpuT),"\n")
