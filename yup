@@ -1,0 +1,57 @@
+inpuT = input("Enter the value : ")
+t = inpuT
+
+def  ra(n):
+    ll = n[::-1]
+    return ll 
+    
+
+
+def r(n):
+    la = n.split(' ')
+    ka = []
+    
+    for i in range(len(la)):
+        z = la[i]
+        #print(z[::-1],end = " ")
+        ka. append(z[::-1])
+    return ka
+    
+
+    
+def frequency(st):
+    d1 = dict()
+    for c in st:
+        if c in d1:
+            d1[c] +=1
+        else:
+            d1[c] = 1
+            
+            
+    #if max(d1.keys()) == chr(32) :
+        #x = ("(space)","-",max(d1.values())) 
+    #else:
+        #x =(max(d1.keys()),"-",max(d1.values()))
+    return  d1
+
+def frequency1(st):
+    d1 = dict()
+    for c in st:
+        if c in d1:
+            d1[c] +=1
+        else:
+            d1[c] = 1
+            
+            
+    #if max(d1.keys()) == chr(32) :
+        x = ("(space)","-",max(d1.values())) 
+    #else:
+        x =(max(d1.keys()),"-",max(d1.values()))
+    return  x 
+
+print(ra(t))    
+p = len(r(inpuT))    
+for i in r(inpuT):
+    print(i,end = ' ')    
+print(frequency(inpuT))
+print(frequency1(inpuT))
