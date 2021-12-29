@@ -1,0 +1,71 @@
+2. to enter a string and do the following using separate functions:
+(a) check if the string is palindrome or not 
+(b) reverse the letters in the words of the string 
+(c) return a dictionary which contains the characters and their frequencies and
+(d) find the character (including space) with highest occurrence.'''
+
+inpuT = input("Enter the value : ")
+t = inpuT
+
+def  ra(t):
+    ll = t[::-1]
+    return ll 
+    
+
+
+def r(n):
+    la = n.split(' ')
+    ka = []
+    
+    for i in range(len(la)):
+        z = la[i]
+        #print(z[::-1],end = " ")
+        ka. append(z[::-1])
+    return ka
+    
+
+    
+def frequency(st):
+    d1 = dict()
+    for c in st:
+        if c in d1:
+            d1[c] +=1
+        else:
+            d1[c] = 1
+            
+            
+    #if max(d1.keys()) == chr(32) :
+        #x = ("(space)","-",max(d1.values())) 
+    #else:
+        #x =(max(d1.keys()),"-",max(d1.values()))
+    return  d1
+
+def frequency1(st):
+    d1 = dict()
+    for c in st:
+        if c in d1:
+            d1[c] +=1
+        else:
+            d1[c] = 1
+            
+            
+    #if max(d1.keys()) == chr(32) :
+        x = ("(space)","-",max(d1.values())) 
+    #else:
+        x =(max(d1.keys()),"-",max(d1.values()))
+    return  x 
+print("a) check if the string is palindrome or not")
+if t == ra(t):
+    print("The string is a palindrome")
+else:
+    print("The string is not a palindrome")
+print("\n")    
+print("b) reverse the letters in the words of the string")
+p = len(r(inpuT))    
+for i in r(inpuT):
+    print(i,end = ' ')    
+print("\n")
+print("c) return a dictionary which contains the characters and their frequencies")
+print(frequency(inpuT),"\n")
+print("d)  find the character (including space) with highest occurrence.")
+print(frequency1(inpuT),"\n")

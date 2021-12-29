@@ -27,11 +27,11 @@ def text_modder():
 -> to make it work faster 
 -> encrypt and decrypt the password to make it difficult to read using base64
 -> to create a random password generator and also ask if they want to add it   
--> tick tack toe
+-> tick tack toe (Done)
 -> text to speech converter and saving in a file
 -> speech to text converter
 -> phone base to add,replace ,delete
--> task scheduler
+-> task scheduler (In-progress)
 '''
 
 
