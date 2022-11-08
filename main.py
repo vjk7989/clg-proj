@@ -1,6 +1,7 @@
 from sys import *
 tokens = []
 nums_stack = []
+symbols = {}
 def open_file(filenaame):
     data = open(filenaame,"r").read()
     data += "<EOF>"
@@ -74,9 +75,10 @@ def lex(filedata):
             strng += tok
             tok = ""
     #print(expr) #prints all the numbers
-    print(tokens)
-    return ""
-    #return tokens
+    #print(tokens)
+    #print(symbols)
+    #return ""
+    return tokens
 def doPrint(toPrint):
     if(toPrint[0:6]=="STRING"):
         toPrint = toPrint[8:]
@@ -86,6 +88,7 @@ def doPrint(toPrint):
     elif (toPrint[0:4] == "EXPR"):
         toPrint = exp_eval(toPrint[5:])
     print(toPrint)
+
 def exp_eval(expr):
     '''
     expr = ","+expr
@@ -106,6 +109,8 @@ def exp_eval(expr):
         i-=1
     print(nums_stack)'''
     return eval(expr)
+def doAssign(varName,varValue):
+    symbols[varName[4:]] = varValue
 def parse(tokns):
     i =0
     while(i<len(tokns)):
@@ -119,6 +124,11 @@ def parse(tokns):
                 doPrint(tokns[i + 1])
             #print("found")
             i+=2
+        if(tokns[i][0:3]+" "+tokns[i+1]+" "+tokns[i+2][0:6] == "VAR EQUALS STRING"):
+            doAssign(tokns[i],tokns[i+2])
+            #doAssign(tokns[i],tokns[i+2])
+            i+=3
+    print(symbols)
 
 
 def run():
