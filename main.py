@@ -48,6 +48,15 @@ def lex(filedata):
         elif(tok == "prnt"):
             tokens.append("PRINT")
             tok = ""
+        elif (tok == "inpt"):
+            tokens.append("INPUT")
+            tok = ""
+        elif (tok == "if"):
+            tokens.append("IF")
+            tok = ""
+        elif (tok == "then"):
+            tokens.append("THEN")
+            tok = ""
         elif (tok in numss):
             #print("num found")
             expr += tok
@@ -56,7 +65,7 @@ def lex(filedata):
             isexpr = 1
             expr+=tok
             tok=""
-        elif(tok == "\""):
+        elif(tok == "\"" or tok == " \""):
             if state == 0:
                 state = 1
             elif state ==1:
@@ -119,10 +128,14 @@ def doAssign(varName,varValue):
 def getVar(varName):
     varName = varName[4:]
     if varName in symbols:
-        print("True")
+        #print("True")
         return symbols[varName]
     else:
         return "ERROR 7989: UNDF"
+        exit()
+def getInput(String,varname):
+    i = input(String[1:-1]+ " ")
+    symbols[varname] = "STRING:\"" + i+"\""
 def parse(tokns):
     i =0
     while(i<len(tokns)):
@@ -138,7 +151,7 @@ def parse(tokns):
                 doPrint(getVar(tokns[i + 1]))
             #print("found")
             i+=2
-        elif(tokns[i][0:3]+" "+tokns[i+1]+" "+tokns[i+2][0:6] == "VAR EQUALS STRING" or tokns[i][0:3]+" "+tokns[i+1]+" "+tokns[i+2][0:4] == "VAR EQUALS NUMS" or tokns[i][0:3]+" "+tokns[i+1]+" "+tokns[i+2][0:4] == "VAR EQUALS EXPR"):
+        elif(tokns[i][0:3]+" "+tokns[i+1]+" "+tokns[i+2][0:6] == "VAR EQUALS STRING" or tokns[i][0:3]+" "+tokns[i+1]+" "+tokns[i+2][0:4] == "VAR EQUALS NUMS" or tokns[i][0:3]+" "+tokns[i+1]+" "+tokns[i+2][0:4] == "VAR EQUALS EXPR"  or tokns[i][0:3]+" "+tokns[i+1]+" "+tokns[i+2][0:3] == "VAR EQUALS VAR" ):
 
             if (tokns[i + 2][0:6] == "STRING"):
                 doAssign(tokns[i], tokns[i + 2])
@@ -146,7 +159,12 @@ def parse(tokns):
                 doAssign(tokns[i], tokns[i + 2])
             elif (tokns[i + 2][0:4] == "EXPR"):
                 doAssign(tokns[i], "NUMS:"+str(exp_eval(tokns[i + 2][5:])))
+            elif (tokns[i + 2][0:3] == "VAR"):
+                doAssign(tokns[i],getVar(tokns[i + 2]))
             #doAssign(tokns[i],tokns[i+2])
+            i+=3
+        elif(tokns[i]+" "+tokns[i+1][0:6]+" "+tokns[i+2][0:3]=="INPUT STRING VAR"):
+            getInput(tokns[i+1][7:],tokns[i+2][4:])
             i+=3
     #print(symbols)
 
