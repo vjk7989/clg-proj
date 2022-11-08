@@ -124,8 +124,14 @@ def parse(tokns):
                 doPrint(tokns[i + 1])
             #print("found")
             i+=2
-        if(tokns[i][0:3]+" "+tokns[i+1]+" "+tokns[i+2][0:6] == "VAR EQUALS STRING"):
-            doAssign(tokns[i],tokns[i+2])
+        if(tokns[i][0:3]+" "+tokns[i+1]+" "+tokns[i+2][0:6] == "VAR EQUALS STRING" or tokns[i][0:3]+" "+tokns[i+1]+" "+tokns[i+2][0:4] == "VAR EQUALS NUMS" or tokns[i][0:3]+" "+tokns[i+1]+" "+tokns[i+2][0:4] == "VAR EQUALS EXPR"):
+
+            if (tokns[i + 2][0:6] == "STRING"):
+                doAssign(tokns[i], tokns[i + 2])
+            elif (tokns[i + 2][0:4] == "NUMS"):
+                doAssign(tokns[i], tokns[i + 2])
+            elif (tokns[i + 2][0:4] == "EXPR"):
+                doAssign(tokns[i], "NUMS:"+str(exp_eval(tokns[i + 2][5:])))
             #doAssign(tokns[i],tokns[i+2])
             i+=3
     print(symbols)
