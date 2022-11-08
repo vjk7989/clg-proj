@@ -69,6 +69,11 @@ def lex(filedata):
             var+=tok
             tok = ""
         elif (varStarted ==1):
+            if (tok == "<" or tok == ">"):
+                if var != "":
+                    tokens.append("VAR:" + var)
+                    var = ""
+                    varStarted = 0
             var+=tok
             tok = ""
         elif(state == 1):
@@ -111,20 +116,29 @@ def exp_eval(expr):
     return eval(expr)
 def doAssign(varName,varValue):
     symbols[varName[4:]] = varValue
+def getVar(varName):
+    varName = varName[4:]
+    if varName in symbols:
+        print("True")
+        return symbols[varName]
+    else:
+        return "ERROR 7989: UNDF"
 def parse(tokns):
     i =0
     while(i<len(tokns)):
 
-        if(tokns[i]+" "+tokns[i+1][0:6]=="PRINT STRING" or tokns[i]+" "+tokns[i+1][0:4]=="PRINT NUMS" or tokns[i]+" "+tokns[i+1][0:4]=="PRINT EXPR"):
+        if(tokns[i]+" "+tokns[i+1][0:6]=="PRINT STRING" or tokns[i]+" "+tokns[i+1][0:4]=="PRINT NUMS" or tokns[i]+" "+tokns[i+1][0:4]=="PRINT EXPR" or tokns[i]+" "+tokns[i+1][0:3]=="PRINT VAR"):
             if(tokns[i+1][0:6]=="STRING"):
                 doPrint(tokns[i+1])
             elif(tokns[i+1][0:4]=="NUMS"):
                 doPrint(tokns[i + 1])
             elif (tokns[i + 1][0:4] == "EXPR"):
                 doPrint(tokns[i + 1])
+            elif (tokns[i + 1][0:3] == "VAR"):
+                doPrint(getVar(tokns[i + 1]))
             #print("found")
             i+=2
-        if(tokns[i][0:3]+" "+tokns[i+1]+" "+tokns[i+2][0:6] == "VAR EQUALS STRING" or tokns[i][0:3]+" "+tokns[i+1]+" "+tokns[i+2][0:4] == "VAR EQUALS NUMS" or tokns[i][0:3]+" "+tokns[i+1]+" "+tokns[i+2][0:4] == "VAR EQUALS EXPR"):
+        elif(tokns[i][0:3]+" "+tokns[i+1]+" "+tokns[i+2][0:6] == "VAR EQUALS STRING" or tokns[i][0:3]+" "+tokns[i+1]+" "+tokns[i+2][0:4] == "VAR EQUALS NUMS" or tokns[i][0:3]+" "+tokns[i+1]+" "+tokns[i+2][0:4] == "VAR EQUALS EXPR"):
 
             if (tokns[i + 2][0:6] == "STRING"):
                 doAssign(tokns[i], tokns[i + 2])
@@ -134,7 +148,7 @@ def parse(tokns):
                 doAssign(tokns[i], "NUMS:"+str(exp_eval(tokns[i + 2][5:])))
             #doAssign(tokns[i],tokns[i+2])
             i+=3
-    print(symbols)
+    #print(symbols)
 
 
 def run():
